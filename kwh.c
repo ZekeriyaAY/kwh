@@ -1,3 +1,10 @@
+/*
+ * This project is licensed under GPLv3
+ *
+ * Copyright (C) 2021 Zekeriya Ay <zekeriyaay.com>
+ * Copyright (C) 2021 Berkay Çubuk <berkaycubuk.com>
+ */
+
 #include <kwh.h>
 
 const char alphabet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -13,32 +20,8 @@ char *generateRandomString(int len) {
     return output;
 }
 
-/*
-        |123456789012|
-        |------------|
-        |aaaaaaaaaaaa|
-        |aaaaaaaaaaab|
-        |    ...     |
-        |999999999998|
-        |999999999999|  
-    */
 char *generateSortedString(int len, int count) {
-    
-
     char *output = malloc(len * sizeof(char));
-
-    for (int i = len-1; i >= 0; i--) {
-        for(int j = 0; j <= 62; j++) {
-            output[i] = alphabet[j];
-            
-        }
-    }
-
-    // for (int i = 0; i < len; i++) {
-    //     output[i] = alphabet[count % 62];     
-    // }
-
-    
     
     return output;
 }
