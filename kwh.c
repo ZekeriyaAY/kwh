@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
+#include <kwh.h>
 
 const char alphabet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const char targetPasswd[] = "99VEC49CQ4cf";
@@ -92,11 +89,13 @@ int findPasswd(int len){
 }
 
 int main() {
+    // precise seed generation
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     srand((time_t)ts.tv_nsec);
     
     findPasswd(12);
 
+    // be positive :)
     return 1;
 }
