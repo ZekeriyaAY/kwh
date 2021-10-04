@@ -20,21 +20,8 @@ char *generateRandomString(int len) {
     return output;
 }
 
-/*
-        |123456789012|
-        |------------|
-        |aaaaaaaaaaaa|
-        |aaaaaaaaaaab|
-        |    ...     |
-        |999999999998|
-        |999999999999|  
-    */
 char *generateSortedString(int len, int count) {
     char *output = malloc(len * sizeof(char));
-
-    for (int i = 0; i < strlen(alphabet); i++) {
-        
-    }    
     
     return output;
 }
