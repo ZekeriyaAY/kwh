@@ -16,16 +16,33 @@ char *generateRandomString(int len) {
     return output;
 }
 
+/*
+        |123456789012|
+        |------------|
+        |aaaaaaaaaaaa|
+        |aaaaaaaaaaab|
+        |    ...     |
+        |999999999998|
+        |999999999999|  
+    */
 char *generateSortedString(int len, int count) {
+    
+
     char *output = malloc(len * sizeof(char));
 
-    for (int i = 0; i < len; i++) {
-        for(int j = count; j < strlen(alphabet); j++) {
+    for (int i = len-1; i >= 0; i--) {
+        for(int j = 0; j <= 62; j++) {
             output[i] = alphabet[j];
-            break;
+            
         }
     }
 
+    // for (int i = 0; i < len; i++) {
+    //     output[i] = alphabet[count % 62];     
+    // }
+
+    
+    
     return output;
 }
 
@@ -38,8 +55,8 @@ int printOutput(int count, char *beFoundPasswd) {
         exit(0);
     }
 
-    fprintf(fptr,"[+]Target Passwd: %s\t TEST %d --> Be Found Passwd: %s\n",targetPasswd,count,beFoundPasswd);
-    printf("\n[+]Target Passwd: %s\t TEST %d --> Be Found Passwd: %s\n",targetPasswd,count,beFoundPasswd);
+    fprintf(fptr,"[+]Target Passwd: %s\t COUNT %d --> Be Found Passwd: %s\n",targetPasswd,count,beFoundPasswd);
+    printf("\n[+]Target Passwd: %s\t COUNT %d --> Be Found Passwd: %s\n",targetPasswd,count,beFoundPasswd);
     
     fclose(fptr);
     return 1;
@@ -54,12 +71,14 @@ int findPasswd(int len){
          * Memory management magic by: Berkay Çubuk <berkaycubuk.com>
          */
 
-        //char *passwd = generateRandomString(len);
+        // char *passwd = generateRandomString(len);
         char *passwd = generateSortedString(len, count);
         count++;
 
+        printf("[-]COUNT %d %s\n",count,passwd); // REMOVE THIS
+        
         if (!(count % 100000000)) {
-            printf("[-]COUNT %d\n",count);
+            // printf("[-]COUNT %d %s\n",count,passwd);
         }
         
         if (passwd == targetPasswd) {
