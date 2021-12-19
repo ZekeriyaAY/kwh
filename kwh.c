@@ -19,21 +19,6 @@ char *generateRandomString(int len, char *output) {
     return output;
 }
 
-int *generateSortedString(int index, int *passwd) {
-    if(index <= len) {
-        for (int i = 0; i < len+2; i++) {
-            if ((passwd[index] + 1) % strlen(alphabet) == 0) {
-                passwd[index] = (passwd[index] + 1) % strlen(alphabet);
-                generateSortedString(index + 1, passwd);
-            } else {
-                passwd[index] = (passwd[index] + 1) % strlen(alphabet);
-            }
-        }
-    }
-    
-    return passwd;
-}
-
 int printOutput(int count, char *beFoundPasswd) {
     FILE *fptr;
 
@@ -50,43 +35,27 @@ int printOutput(int count, char *beFoundPasswd) {
     return 1;
 }
 
-int findPasswd() {
+int findRandomPasswd() {
     int count = 0;
-    int running = 1;
-    int satir = len-1;
+	int running = 1;
 
     while (running) {
         /* 
          * Memory management magic by: Berkay Çubuk <berkaycubuk.com>
          */
-        int *passwd = malloc(len * sizeof(int));
-        for (int i = 0; i < len; i++) {
-            passwd[i] = 0;
-        } 
-        printf("[%ld]\n", (passwd[2] + 1) % strlen(alphabet)); // REMOVE THIS
+        char *passwd = malloc(len * sizeof(int));
 
-        // passwd = generateRandomString(len, passwd);
-        passwd = generateSortedString(satir, passwd);
-        satir--;
-        
-        for (int i = len-1 ; i >= 0; i--) {
-            printf("%d", passwd[i]); // REMOVE THIS
-        }
-        
+        passwd = generateRandomString(len, passwd);
         
         count++;
-        if (count == 2){
-            running = 0;
+        if (!(count % 100000000)) {
+            printf("[-]COUNT %d %s\n",count,passwd);
         }
-
-        // if (!(count % 100000000)) {
-        //     printf("[-]COUNT %d %s\n",count,passwd);
-        // }
         
-        // if (passwd == targetPasswd) {
-        //     running = 0;
-        //     printOutput(count, passwd);
-        // }
+        if (passwd == targetPasswd) {
+            running = 0;
+            printOutput(count, passwd);
+        }
         free(passwd);
     }
 
@@ -99,7 +68,7 @@ int main() {
     clock_gettime(CLOCK_MONOTONIC, &ts);
     srand((time_t)ts.tv_nsec);
 
-    findPasswd(len);
+    findRandomPasswd(len);
 
     // be positive :)
     return 1;
